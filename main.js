@@ -1,3 +1,13 @@
+function LoadExternalJS(src) {
+  (function(d, script) {
+    script = d.createElement('script');
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = src;
+    d.getElementsByTagName('head')[0].appendChild(script);
+}(document));
+};
+
 const InfPlusLoaded = true;
 if (InfPlusLoaded) {
   // start
@@ -15,10 +25,8 @@ if (InfPlusLoaded) {
     console.log(ModuleEnabler.value);
     if (InfPlusIdle == true) {
       InfPlusIdle = false;
-      switch(ModuleEnabler.value) {
-        case "custom_item":
-          alert("1");
-          break;
+      if (ModuleEnabled.value != "select") {
+        LoadExternalJS(`https://raw.githubusercontent.com/s4300/InfPlus/main/modules/${ModuleEnabled.value}.js`);
       };
       ModuleEnabler.value = "select";
       InfPlusIdle = true;
